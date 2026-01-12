@@ -1,0 +1,35 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-8460dcdc592f5a82bebf0ab5b98958d56392fdac",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "userSourceNameMap": {
+    "contracts/Guestbook.sol": "project/contracts/Guestbook.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/Guestbook.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.24;\n\ncontract Guestbook {\n\n    struct Entry { \n        address writer;\n        string message;\n        uint256 timestamp;\n    }\n\n    event NewEntry(address indexed writer, string message, uint256 timestamp);\n\n    Entry[] public entries;\n\n    function writeMessage(string memory _message) public {\n        require(bytes(_message).length > 0, \"Nachricht darf nicht leer sein\");\n\n        Entry memory newEntry = Entry ({\n            writer: msg.sender,\n            message: _message,\n            timestamp: block.timestamp\n        });\n\n        entries.push(newEntry);\n\n        emit NewEntry(msg.sender, _message, block.timestamp);\n    }\n\n}"
+      }
+    }
+  }
+}
