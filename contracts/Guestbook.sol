@@ -27,4 +27,8 @@ contract Guestbook {
         emit NewEntry(msg.sender, _message, block.timestamp);
     }
 
+    function getAllEntries() public view returns (Entry[] memory) {
+        return entries;
+    }
+
 }

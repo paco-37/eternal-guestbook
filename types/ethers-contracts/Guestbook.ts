@@ -4,16 +4,25 @@
 import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, EventFragment, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers"
 import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedLogDescription, TypedListener, TypedContractMethod } from "./common.js"
   
+export declare namespace Guestbook {
+      
+    export type EntryStruct = {writer: AddressLike, message: string, timestamp: BigNumberish}
+
+    export type EntryStructOutput = [writer: string, message: string, timestamp: bigint] & {writer: string, message: string, timestamp: bigint }
+  
+    }
 
   export interface GuestbookInterface extends Interface {
-    getFunction(nameOrSignature: "entries" | "writeMessage"): FunctionFragment;
+    getFunction(nameOrSignature: "entries" | "getAllEntries" | "writeMessage"): FunctionFragment;
 
     getEvent(nameOrSignatureOrTopic: "NewEntry"): EventFragment;
 
     encodeFunctionData(functionFragment: 'entries', values: [BigNumberish]): string;
+encodeFunctionData(functionFragment: 'getAllEntries', values?: undefined): string;
 encodeFunctionData(functionFragment: 'writeMessage', values: [string]): string;
 
     decodeFunctionResult(functionFragment: 'entries', data: BytesLike): Result;
+decodeFunctionResult(functionFragment: 'getAllEntries', data: BytesLike): Result;
 decodeFunctionResult(functionFragment: 'writeMessage', data: BytesLike): Result;
   }
 
@@ -72,6 +81,14 @@ decodeFunctionResult(functionFragment: 'writeMessage', data: BytesLike): Result;
     
 
     
+    getAllEntries: TypedContractMethod<
+      [],
+      [Guestbook.EntryStructOutput[]],
+      'view'
+    >
+    
+
+    
     writeMessage: TypedContractMethod<
       [_message: string, ],
       [void],
@@ -85,6 +102,11 @@ decodeFunctionResult(functionFragment: 'writeMessage', data: BytesLike): Result;
     getFunction(nameOrSignature: 'entries'): TypedContractMethod<
       [arg0: BigNumberish, ],
       [[string, string, bigint] & {writer: string, message: string, timestamp: bigint }],
+      'view'
+    >;
+getFunction(nameOrSignature: 'getAllEntries'): TypedContractMethod<
+      [],
+      [Guestbook.EntryStructOutput[]],
       'view'
     >;
 getFunction(nameOrSignature: 'writeMessage'): TypedContractMethod<
