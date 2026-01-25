@@ -1,8 +1,13 @@
 import { ethers } from "hardhat";
+import * as dotenv from "dotenv";
 
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; 
+dotenv.config();
 
 async function main() {
+
+  const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS || "0x82ceC911459E5a7e5C33AeB4B05Bd140BbF397fA";
+
+  console.log(`Verbinde mit Contract auf Adresse: ${CONTRACT_ADDRESS}`);
 
   const guestbook = await ethers.getContractAt("Guestbook", CONTRACT_ADDRESS);
 
@@ -10,9 +15,12 @@ async function main() {
   let entries = await guestbook.getAllEntries();
   console.log(`Anzahl Einträge vorher: ${entries.length}`);
 
-  console.log("Schreibe neuen Eintrag...");
-  const tx = await guestbook.writeMessage("Hallo von der Kommandozeile!");
+  const message = "Hello Blockchain! Dies ist mein erster Eintrag.";
+  console.log(`Schreibe neuen Eintrag: "${message}"`);
   
+  const tx = await guestbook.writeMessage(message);
+
+  console.log("Warte auf Bestätigung der Blockchain (Mining)...");
   await tx.wait(); 
 
   entries = await guestbook.getAllEntries();
