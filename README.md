@@ -1,57 +1,111 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Eternal Guestbook
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+A decentralized, immutable guestbook application built on the Ethereum blockchain (Sepolia Testnet). This project demonstrates the implementation of smart contracts using Solidity, the Hardhat development environment, and TypeScript for testing and interaction.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+**Repository:** [https://github.com/paco-37/eternal-guestbook.git](https://github.com/paco-37/eternal-guestbook.git)
+
+---
 
 ## Project Overview
 
-This example project includes:
+The Eternal Guestbook allows users to store messages permanently on the blockchain. Once a message is written, it cannot be altered or deleted, ensuring a censorship-resistant and tamper-proof history of entries.
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+This project serves as a foundational example of full-stack Web3 development, covering smart contract development, testing, deployment, and on-chain interaction.
+
+---
+
+## Features
+
+* **Immutable Storage** – Messages are stored directly on the Ethereum blockchain.
+* **Public Access** – Anyone can read the complete history of guestbook entries.
+* **Interaction Scripts** – Automated scripts for deployment and contract interaction.
+* **Comprehensive Testing** – Unit tests to ensure correct contract logic and basic security guarantees.
+
+---
+
+## Technical Stack
+
+* **Solidity (v0.8.28)** – Smart contract development
+* **Hardhat** – Ethereum development environment
+* **TypeScript** – Type-safe scripting and testing
+* **Ethers.js** – Interaction with the Ethereum blockchain
+* **Alchemy** – Blockchain node provider
+
+---
+
+## Installation and Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/paco-37/eternal-guestbook.git
+cd eternal-guestbook
+```
+
+### 2. Install Dependencies
+
+```bash
+yarn install
+```
+
+---
+
+## Configuration
+
+This project requires environment variables to interact with the Sepolia test network.
+
+Create a `.env` file in the root directory and add the following values:
+
+```env
+SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_KEY
+PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
+CONTRACT_ADDRESS=0x82ceC911459E5a7e5C33AeB4B05Bd140BbF397fA
+```
+
+> **Note:** The `.env` file is excluded from version control to protect sensitive credentials.
+
+---
 
 ## Usage
 
 ### Running Tests
 
-To run all the tests in the project, execute the following command:
+Execute the full test suite to verify the smart contract logic:
 
-```shell
-npx hardhat test
+```bash
+yarn hardhat test
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
+---
 
-```shell
-npx hardhat test solidity
-npx hardhat test mocha
+### Deployment
+
+Deploy the smart contract to the Sepolia Testnet:
+
+```bash
+yarn hardhat run scripts/deploy.ts --network sepolia
 ```
 
-### Make a deployment to Sepolia
+---
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+### Interaction
 
-To run the deployment to a local chain:
+Write a new entry to the guestbook using the interaction script:
 
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+```bash
+yarn hardhat run scripts/interact.ts --network sepolia
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+---
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+## Deployed Contract Information
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+* **Network:** Sepolia Testnet
+* **Contract Address:** `0x82ceC911459E5a7e5C33AeB4B05Bd140BbF397fA`
+* **Explorer:** View on Sepolia Etherscan
 
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
+---
 
-After setting the variable, you can run the deployment with the Sepolia network:
+## License
 
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+This project is provided for educational and demonstration purposes. Refer to the repository for licensing details.
